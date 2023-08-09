@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React test</title>
+
+    <!--    <script type="text/javascript">-->
+
+</head>
+<body>
+<div id="test"></div>
+</body>
+
+<script src="./js/react.development.js" type="text/javascript"></script>
+<script src="./js/react-dom.development.js" type="text/javascript"></script>
+
+<!--引入babel将jsx转化成js-->
+<script src="./js/babel.min.js" type="text/javascript"></script>
+
+<style>
+    .title {
+        background-color: coral;
+    }
+</style>
+
+<!--这里使用了babel用来解析jsx语法-->
+<!--会在浏览器端解析jsx, 实际生产环境会在服务端解析好-->
+<script type="text/babel">
+
+    class Demo extends React.Component {
+
+        eles = []
+
+        render() {
+            // 每次渲染都会调用设置给ref的callback 2次
+            // 每次都会创建一个新的 (c) => this.input1 = c 函数实例，对旧的函数调用f(null), 对新的调用f(ele)
+            const res = (
+                <div>
+                    <input ref={(c) => this.input1 = c} type="text" placeholder="点击"/>
+                    <button onClick={this.showData}>点我提示</button>
+                    <input ref={(ele) => {
+                        console.log("set this.input2. ele:", ele)
+                        this.input2 = ele
+                        if (ele) {
+                            this.eles.push(ele)
+                            console.log(this.eles)
+                        }
+                    }} onBlur={this.showData1} type="text" placeholder="失去焦点"/>
+                </div>
+            )
+            console.log(this.eles, this.eles.length)
+            if (this.eles.length == 2) {
+                console.log("this.eles[0] === this.eles[1]:", this.eles[0] === this.eles[1])
+                console.log("Object.is(this.eles[0], this.eles[1]):", Object.is(this.eles[0], this.eles[1]))
+            }
+
+            return res
+        }
+
+        showData = () => {
+            const {input1} = this // 引用的是真实dom
+            alert(input1.value)
+        }
+
+        showData1 = () => {
+            const {input2} = this // 引用的是真实dom
+            alert(input2.value)
+            this.setState({})
+        }
+    }
+
+
+    // const VDOM = <MyComponent/>
+    // 2.渲染，如果有多个渲染同一个容器，后面的会将前面的覆盖掉
+    ReactDOM.render(<Demo/>, document.getElementById("test"));
+
+</script>
+
+</html>

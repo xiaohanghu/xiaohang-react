@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React test</title>
+
+    <!--    <script type="text/javascript">-->
+
+</head>
+<body>
+<div id="test"></div>
+</body>
+
+<script src="./js/react.development.js" type="text/javascript"></script>
+<script src="./js/react-dom.development.js" type="text/javascript"></script>
+
+<!--引入babel将jsx转化成js-->
+<script src="./js/babel.min.js" type="text/javascript"></script>
+
+<style>
+    .title {
+        background-color: coral;
+    }
+</style>
+
+<!--这里使用了babel用来解析jsx语法-->
+<!--会在浏览器端解析jsx, 实际生产环境会在服务端解析好-->
+<script type="text/babel">
+
+    class Count extends React.Component {
+
+        constructor(props) {
+            super(props);
+            console.log("constructor")
+        }
+
+        state = {
+            count: 1
+        }
+        add = (eve) => {
+            this.setState({count: this.state.count + 1})
+        }
+
+        componentWillMount() {
+            console.log("componentWillMount")
+        }
+
+        componentDidMount() {
+            console.log("componentDidMount")
+        }
+
+        componentWillUnmount() {
+            console.log("componentWillUnmount")
+        }
+
+        shouldComponentUpdate() {
+            console.log("shouldComponentUpdate")
+            // return false;
+            return true;
+        }
+
+        // forceUpdate() 可以触发该方法
+        componentWillUpdate() {
+            console.log("componentWillUpdate")
+        }
+
+        componentDidUpdate(preProps, preState ) {
+            console.log("componentDidUpdate")
+        }
+
+        reRender = () => {
+            this.forceUpdate()
+        }
+
+        render() {
+            console.log("render")
+            const res = (
+                <div>
+                    <h2>Count: {this.state.count}</h2>
+                    <button onClick={this.add}>Add1</button>
+                    <button onClick={this.reRender}>forceUpdate</button>
+                </div>
+            )
+
+            return res
+        }
+
+    }
+
+
+    // const VDOM = <MyComponent/>
+    // 2.渲染，如果有多个渲染同一个容器，后面的会将前面的覆盖掉
+    ReactDOM.render(<Count/>, document.getElementById("test"));
+
+</script>
+
+</html>

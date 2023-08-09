@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React test</title>
+
+    <!--    <script type="text/javascript">-->
+
+</head>
+<body>
+<div id="test"></div>
+</body>
+
+<script src="./js/react.development.js" type="text/javascript"></script>
+<script src="./js/react-dom.development.js" type="text/javascript"></script>
+
+<!--引入babel将jsx转化成js-->
+<script src="./js/babel.min.js" type="text/javascript"></script>
+
+<style>
+    .title {
+        background-color: coral;
+    }
+</style>
+
+<!--这里使用了babel用来解析jsx语法-->
+<!--会在浏览器端解析jsx, 实际生产环境会在服务端解析好-->
+<script type="text/babel">
+
+    class MyComponent extends React.Component{
+         render(){
+             return <h2>我是类组件. hello, {this.props.name}</h2>
+         }
+    }
+    // props
+    // refs
+    // state
+
+    // const VDOM = <MyComponent/>
+    // 2.渲染，如果有多个渲染同一个容器，后面的会将前面的覆盖掉
+    ReactDOM.render(<MyComponent name="Dave" />, document.getElementById("test"));
+
+</script>
+
+</html>

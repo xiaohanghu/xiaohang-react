@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>ES6 test</title>
+
+    <!--    <script type="module">-->
+    <script type="text/javascript">
+
+        'use strict';
+
+        let arr1 = []
+        for (let i = 0; i < 10; i++) {
+            arr1.push(i)
+        }
+        let arr2 = [11, 12]
+        let arr3 = [...arr1, ...arr2]
+
+        console.log(arr3)
+
+
+        function sum(...numbers){
+            console.log(numbers)
+        }
+
+        sum(1,2,3)
+
+        let person = {name:'Dave', age:18, data:{test:1}}
+        // console.log(...person) // 不能展开对象
+        let person1 = {...person, age:20} // 浅克隆对象，并不是展开运算符
+        // const person1 = Object.assign({},person); //只改变了外层地址，所以依然是浅拷贝
+        // 深拷贝最好使用lodash的cloneDeep方法或者JSON数据转 let person1 = _.cloneDeep(person);
+
+        person.data.test=2
+        console.log("person:", person)
+        console.log("person1:", person1)
+    </script>
+    <style type="text/css">
+    </style>
+
+</head>
+<body>
+<h1>
+    ES6 test
+</h1>
+</body>
+</html>

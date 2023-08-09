@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+</head>
+<body>
+<ul id="list" style="width: 100px;margin:0;float: left;">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+</ul>
+<button style="float:left;" id="addli">添加一个 li</button>
+<button style="float:left;" id="delli">删除一个 li</button>
+<script>
+    <!--事件冒泡与div显示的位置无关，至于html源码中的位置有关系-->
+
+// 事件委托的优点
+// 1) 减小内存消耗
+//   使用事件委托可以大量节省内存，减少事件的定义，通过上面的示例可以看出，要为 ul 标签下的所有 li 标签添加点击事件，如果分别为每个 li 标签绑定事件，不仅写起来比较繁琐，而且对内存的消耗也非常大。而使用事件委托的方式将点击事件绑定到 ul 标签上，就可以实现监听所有 li 标签，简洁、高效。
+// 2) 动态绑定事件
+//   在网页中，有时我们需要动态增加或移除页面中的元素，比如上面示例中动态的在 ul 标签中添加 li 标签，如果不使用事件委托，则需要手动为新增的元素绑定事件，同时为删除的元素解绑事件。而使用事件委托就没有这么麻烦了，无论是增加还是减少 ul 标签中的 li 标签，即不需要再为新增的元素绑定事件，也不需要为删除的元素解绑事件。所以使用事件委托动态绑定事件可以减少很多重复工作的。
+
+    window.onload = function(){
+        var the_ul = document.getElementById('list');
+        var the_li = the_ul.getElementsByTagName('li');
+        var sum = the_li.length
+        the_ul.onclick = function(e){
+            console.log(e.target.outerHTML)
+        };
+        document.getElementById('addli').onclick = function (){
+            var newli = document.createElement("li");
+            newli.innerHTML = ++sum;
+            the_ul.appendChild(newli);
+        };
+        document.getElementById('delli').onclick = function (){
+            the_ul.firstElementChild.remove();
+        };
+    }
+</script>
+</body>
+</html>

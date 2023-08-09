@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>ES6 test</title>
+
+    <!--    <script type="module">-->
+    <script type="text/javascript">
+
+        'use strict';
+
+        /**
+         * Person class.
+         *
+         * @constructor
+         * @param {String} name - name of a person.
+         * @param {Number} age  - age of a person.
+         * @param {String} gender  - gender of a person.
+         */
+
+        class Person {
+            constructor(name, age, gender) {
+                this.name = name;
+                this.age = age;
+                this.gender = gender;
+            }
+
+            getName() {
+                return this.name;
+            }
+
+            getAge() {
+                return this.age;
+            }
+
+            getGender() {
+                return this.gender;
+            }
+        }
+
+
+        const p = new Person('John Doe', 30, 'male');
+        Object.defineProperty(p, 'props', {
+            value: {name0: 'Dave'},
+            writable: false,
+            configurable: false
+        })
+        p.props = 'sad'
+        console.log("p.props:", p.props)
+
+    </script>
+    <style type="text/css">
+    </style>
+
+</head>
+<body>
+<h1>
+    ES6 test
+</h1>
+</body>
+</html>

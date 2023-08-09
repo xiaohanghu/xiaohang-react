@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React test</title>
+
+    <!--    <script type="text/javascript">-->
+    <script type="module">
+
+    </script>
+    <style type="text/css">
+    </style>
+
+</head>
+<body>
+<div id="test"></div>
+</body>
+
+<script src="./js/react.development.js" type="text/javascript"></script>
+<script src="./js/react-dom.development.js" type="text/javascript"></script>
+
+<!--引入babel将jsx转化成js-->
+<script src="./js/babel.min.js" type="text/javascript"></script>
+
+<style>
+
+    .title {
+        background-color: coral;
+    }
+</style>
+<!--这里使用了babel用来解析jsx语法-->
+<!--会在浏览器端解析jsx, 实际生产环境会在服务端解析好-->
+<script type="text/babel">
+
+    const data = ['Angular', 'React', 'Vue']
+
+    // 1.创建虚拟DOM
+    const VDOM = (
+        <div>
+            <h1 className="title">
+                前段js框架列表
+            </h1>
+            <ul>
+                {
+                    data.map((item, index) => {
+                        return <li key={index}>{item}</li>
+                    })
+                }
+            </ul>
+        </div>
+    )
+    // 只能有1个根标签
+    // 首字母小写的标签代表html里的标签
+    // 首字母大写的标签代表React的组件
+
+    console.log("VDOM:", VDOM)
+    // 虚拟dom是react自己定义的object
+    // 虚拟dom比较"轻", 真实dom比较"重"
+
+    // const VDOM = React.createElement('h1', {id: 'title'}, React.createElement('span', {}, 'Hello react span'))
+
+    // 2.渲染，如果有多个渲染同一个容器，后面的会将前面的覆盖掉
+    ReactDOM.render(VDOM, document.getElementById("test"));
+
+</script>
+
+</html>

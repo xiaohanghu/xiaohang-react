@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>ES6 test</title>
+
+    <!--    <script type="text/javascript">-->
+    <script type="module">
+        let arr = [1, 2, 3];
+        console.log(arr)
+
+        let [x, y, z] = arr;
+        console.log(x, y, z);
+
+        let user = {
+            username: "吕布",
+            weapon: "方天画戟",
+            horse: "赤兔马",
+            age: 100,
+            say() {
+                console.log("大家好啊！");
+            }
+        };
+
+        let {username, weapon, horse} = user;  // 注意：解构的变量名必须是对象中的属性
+
+        // es6的拼接字符串
+        console.log(`我叫:${user.username}, 我明年${user.age + 1}岁！`);
+        user.say();
+
+        let user2 = {...user}; // 深拷贝（克隆）
+        let user3 = {...user, ...user2}; //合并对象
+
+        function test(name, age = 18) { // 函数的默认参数
+            console.log(`我叫${name}，我今年${age}岁`);
+        }
+
+        function test1(...arg) { //函数的不定参数
+            console.log(`传入了${arg.length}个参数`);
+            for (var i = 0; i < arg.length; i++) {
+                console.log(`${i}: ${arg[i]}`);
+            }
+        }
+
+        test1("A", "B", "C");
+
+        //模块化
+        // let userModule = require("./user.js"); //引入user模块
+        // import {userUtils as userModule} from './user.js'
+        import * as userModule from './user.js'
+
+        console.log("userModule:", userModule);
+        console.log(userModule.userUtils.addUser("Dave"));
+
+    </script>
+    <style type="text/css">
+    </style>
+
+</head>
+<body>
+<h1>
+    ES6 test
+</h1>
+</body>
+</html>

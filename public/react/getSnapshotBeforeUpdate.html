@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .list {
+            height: 150px;
+            width: 200px;
+            background-color: aqua;
+            overflow: auto;
+        }
+
+        .news {
+            height: 30px;
+        }
+    </style>
+
+</head>
+<body>
+<div id="div">
+
+</div>
+
+</body>
+<script src="./js/react.development.js" type="text/javascript"></script>
+<script src="./js/react-dom.development.js" type="text/javascript"></script>
+
+<!--引入babel将jsx转化成js-->
+<script src="./js/babel.min.js" type="text/javascript"></script>
+
+<script type="text/babel">
+
+    class New extends React.Component {
+
+        state = {num: [5,4,3,2,1]};
+
+        //在组件创建之后
+        componentDidMount() {
+            setInterval(() => {
+                let {num} = this.state;
+                const news = (num.length + 1);
+                this.setState({num: [news, ...num]});
+            }, 2000);
+        }
+
+        getSnapshotBeforeUpdate() {
+            return this.refs.list.scrollHeight;
+        }
+
+        componentDidUpdate(preProps, preState, height) {
+            this.refs.list.scrollTop += (this.refs.list.scrollHeight - height);
+            // this.refs.list.scrollTop += (this.list_scrollHeight - height);
+            // this.refs.list.scrollTop += 30;
+        }
+
+        render() {
+            if(this.refs.list)
+                this.list_scrollHeight = this.refs.list.scrollHeight;
+
+            return (
+
+                <div ref="list" className="list">{
+                    this.state.num.map((n, index) => {
+                        return <div className="news" key={index}>新闻{n}</div>
+                    })
+                }</div>
+            )
+        }
+    }
+
+    ReactDOM.render(<New/>, document.getElementById("div"));
+
+</script>
+</html>

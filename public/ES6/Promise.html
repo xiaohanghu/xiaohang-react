@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>ES6 test</title>
+
+    <!--    <script type="module">-->
+    <script type="text/javascript">
+
+        'use strict';
+
+        const delay = (ms) => {
+            const startPoint = new Date().getTime()
+            while (new Date().getTime() - startPoint <= ms) {
+                /* wait */
+            }
+        }
+
+        console.log("fetch('/todos.json')")
+        // let promise = fetch('/todos.json')
+        let promise = new Promise((resolve, reject) => {
+            console.log('setTimeout(() => {')
+            setTimeout(() => {
+                resolve("成功");
+                console.log('resolve("成功");')
+            }, 2000);
+        })
+
+        promise = promise.then(response=>{
+            console.log("连接服务器成功")
+            return "test data"
+        })
+        console.log("delay(5000);")
+        delay(2000);
+        // then的时候如果状态已经为fulfilled就直接执行callback, 否则就只是保存callback等待未来执行
+        promise.then(jsonData=>{
+            console.log("jsonData:",jsonData)
+            return jsonData
+        })
+
+    </script>
+    <style type="text/css">
+    </style>
+
+</head>
+<body>
+<h1>
+    ES6 test
+</h1>
+</body>
+</html>
